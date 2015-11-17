@@ -14,4 +14,4 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin
 $PUPPET_AGENT_CRON root /usr/bin/puppet agent -t
 EOF
 
-echo "$cronscript" > /etc/cron.d/puppet-agent && chmod +x /etc/cron.d/puppet
+echo "$cronscript" > /etc/cron.d/puppet-agent && chmod +x /etc/cron.d/puppet-agent

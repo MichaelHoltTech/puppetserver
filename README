@@ -1,3 +1,4 @@
+[![](https://badge.imagelayers.io/michaelholttech/puppetserver:latest.svg)](https://imagelayers.io/?images=michaelholttech/puppetserver:latest 'Get your own badge on imagelayers.io')
 docker run -d --name=puppetserver \
 -e PUPPETSERVER_JAVA_ARGS="-Xms384m -Xmx384m -XX:MaxPermSize=256m" \
 -p 0.0.0.0:8140:8140 \

@@ -1,0 +1,12 @@
+#!/bin/bash
+cat << EOF >> /etc/default/puppet
+# Defaults for puppet - sourced by /etc/init.d/puppet
+
+# Enable puppet agent service?
+# Setting this to "yes" allows the puppet agent service to run.
+# Setting this to "no" keeps the puppet agent service from running.
+START=yes
+
+# Startup options
+DAEMON_OPTS=""
+EOF

@@ -10,8 +10,8 @@ read -d '' cronscript <<EOF
 # Runs the Puppet Agent on a Schedule!
 SHELL=/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
-@reboot root sleep 300 && /sbin/run-puppet-agent
-$PUPPET_AGENT_CRON root /sbin/run-puppet-agent
+@reboot root sleep 200 && /usr/bin/puppet agent -t
+$PUPPET_AGENT_CRON root /usr/bin/puppet agent -t
 EOF
 
-echo "$cronscript" > /etc/cron.d/puppet && chmod +x /etc/cron.d/puppet
+echo "$cronscript" > /etc/cron.d/puppet-agent && chmod +x /etc/cron.d/puppet

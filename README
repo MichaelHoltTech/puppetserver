@@ -1,0 +1,5 @@
+docker run -d --name=puppetserver \
+-e PUPPETSERVER_JAVA_ARGS="-Xms384m -Xmx384m -XX:MaxPermSize=256m" \
+-p 0.0.0.0:8140:8140 \
+-h puppet.rlcit.org \
+michaelholttech/puppetserver

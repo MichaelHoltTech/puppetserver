@@ -1,8 +1,9 @@
 FROM michaelholttech/baseimage:0.0.1
 MAINTAINER Michael Holt <mike@holtit.com>
 CMD ["/sbin/my_init"]
+ENV TERM=xterm
 ADD puppetlabs-release-trusty.deb /root/puppetlabs-release-trusty.deb
-RUN dpkg -i /root/puppetlabs-release-trusty.deb && apt-get update && apt-get install puppetserver -y
+RUN dpkg -i /root/puppetlabs-release-trusty.deb && apt-get update && apt-get install puppetserver nano -y
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/puppetlabs-release-trusty.deb
 RUN mkdir -p /etc/service/puppetserver
 RUN mkdir -p /etc/my_init.d

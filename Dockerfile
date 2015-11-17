@@ -1,4 +1,4 @@
-FROM michaelholttech/baseimage:0.0.1
+FROM michaelholttech/baseimage:0.0.2
 MAINTAINER Michael Holt <mike@holtit.com>
 CMD ["/sbin/my_init"]
 RUN apt-get update -y && apt-get install -y ruby-dev cron wget build-essential libsqlite3-dev && \

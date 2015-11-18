@@ -3,7 +3,7 @@ MAINTAINER Michael Holt <mike@holtit.com>
 CMD ["/sbin/my_init"]
 ADD puppetlabs-release-trusty.deb /root/puppetlabs-release-trusty.deb
 RUN dpkg -i /root/puppetlabs-release-trusty.deb && \
-  apt-get update -y && apt-get install -y ruby-dev cron wget build-essential libsqlite3-dev puppetserver && \
+  apt-get update -y && apt-get install -y git ruby-dev cron wget build-essential libsqlite3-dev puppetserver && \
   /usr/bin/puppetserver gem install jdbc-sqlite3 && \
   /usr/bin/puppetserver gem install CFPropertyList && \
   apt-get clean && \

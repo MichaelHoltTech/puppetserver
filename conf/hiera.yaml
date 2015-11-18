@@ -1,0 +1,10 @@
+---
+:backends:
+    - yaml
+
+:yaml:
+    :datadir: /root/bootstrap/hiera/data
+
+:hierarchy:
+    - custom
+    - common

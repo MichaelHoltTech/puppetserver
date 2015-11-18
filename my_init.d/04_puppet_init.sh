@@ -10,3 +10,15 @@ START=yes
 # Startup options
 DAEMON_OPTS=""
 EOF
+mkdir -p /root/bootstrap/modules
+puppet module install --modulepath=/root/bootstrap/modules zack/r10k
+puppet module install --modulepath=/root/bootstrap/modules stahnma/epel
+puppet module install --modulepath=/root/bootstrap/modules stephenrjohnson/puppet
+puppet module install --modulepath=/root/bootstrap/modules hunner/hiera
+puppet module install --modulepath=/root/bootstrap/modules puppetlabs/stdlib
+
+if [ ! -f /root/.ssh/id_rsa ]; then
+ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
+fi
+
+sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp

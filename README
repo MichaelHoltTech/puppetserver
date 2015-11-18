@@ -1,6 +1,11 @@
 [![](https://badge.imagelayers.io/michaelholttech/puppetserver:latest.svg)](https://imagelayers.io/?images=michaelholttech/puppetserver:latest 'Get your own badge on imagelayers.io')
+
+docker pull quay.io/michaelholttech/puppetserver:latest
 docker run -d --name=puppetserver \
 -e PUPPETSERVER_JAVA_ARGS="-Xms384m -Xmx384m -XX:MaxPermSize=256m" \
 -p 0.0.0.0:8140:8140 \
 -h puppet.rlcit.org \
-michaelholttech/puppetserver
+quay.io/michaelholttech/puppetserver:latest
+
+
+sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp

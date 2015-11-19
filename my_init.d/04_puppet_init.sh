@@ -25,7 +25,8 @@ if [ "$ssh_rsa_key" ]; then
 fi
 if [ ! -f /root/.ssh/id_rsa ]; then
 ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
-chmod -r 0600 /root/.ssh
+sudo chmod 600 /root/.ssh
+sudo chmod 600 /root/.ssh/id_rsa
 touch /root/.new_rsa
 fi
 if [ ! -f /root/.new_rsa ]; then

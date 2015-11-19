@@ -21,10 +21,11 @@ sudo apt-get update
 sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp
 
 if [ "$ssh_rsa_key" ]; then
-  "$ssh_rsa_key" > "/root/.ssh/id_rsa"
+  echo "$ssh_rsa_key" > "/root/.ssh/id_rsa"
 fi
 if [ ! -f /root/.ssh/id_rsa ]; then
 ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
+chmod -r 0600 /root/.ssh
 touch /root/.new_rsa
 fi
 if [ ! -f /root/.new_rsa ]; then

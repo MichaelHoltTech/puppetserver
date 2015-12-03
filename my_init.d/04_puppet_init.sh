@@ -1,4 +1,17 @@
 #!/bin/bash
+
+#Generate RSA Key if one does not exist already
+if [ ! -f /root/.ssh/id_rsa ]
+then
+  ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
+  touch /root/.new_rsa
+fi
+
+
+#If we didn't configure a new RSA Key go ahead and bootstrap puppet and pull in the git repo
+if [ ! -f /root/.new_rsa ]
+then
+
 cat << EOF >> /etc/default/puppet
 # Defaults for puppet - sourced by /etc/init.d/puppet
 
@@ -25,16 +38,9 @@ sudo apt-get update
 #  sudo chmod 600 /root/.ssh/id_rsa
 #fi
 
-#Generate RSA Key if one does not existing
-if [ ! -f /root/.ssh/id_rsa ]
-then
-  ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
-  touch /root/.new_rsa
-fi
 
-#If we didn't configure a new RSA Key go ahead and bootstrap puppet and pull in the git repo
-if [ ! -f /root/.new_rsa ]
-then
+
+
   sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp
   r10k deploy environment -pv
 fi

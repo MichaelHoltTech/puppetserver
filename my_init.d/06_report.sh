@@ -15,6 +15,5 @@ then
   echo "docker stop" $(cat /proc/self/cgroup | grep "cpu:/" | sed 's/\([0-9]\):cpu:\/docker\///g')
   echo "docker start" $(cat /proc/self/cgroup | grep "cpu:/" | sed 's/\([0-9]\):cpu:\/docker\///g')
   echo ""
-  rm /root/.new_rsa
 fi
 echo "=========="

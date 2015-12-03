@@ -18,23 +18,23 @@ puppet module install --modulepath=/root/bootstrap/modules hunner/hiera
 puppet module install --modulepath=/root/bootstrap/modules puppetlabs/stdlib
 
 sudo apt-get update
-sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp
 
-if [ "$ssh_rsa_key" ]; then
-  echo "$ssh_rsa_key" > "/root/.ssh/id_rsa"
-  sudo chmod 600 /root/.ssh
-  sudo chmod 600 /root/.ssh/id_rsa
-fi
-if [ ! -f /root/.ssh/id_rsa ]; then
+#if [ "$ssh_rsa_key" ]; then
+#  echo "$ssh_rsa_key" > "/root/.ssh/id_rsa"
+#  sudo chmod 600 /root/.ssh
+#  sudo chmod 600 /root/.ssh/id_rsa
+#fi
+
+#Generate RSA Key if one does not existing
+if [ ! -f /root/.ssh/id_rsa ]
+then
   ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
   touch /root/.new_rsa
 fi
-if [ -f /root/.new_rsa ]; then
-  echo "Add the following PublicKey to allow the Puppetserver to pull your Core_Repo"
-  echo ""
-  cat /root/.ssh/id_rsa.pub
-  echo ""
-fi
-if [ ! -f /root/.new_rsa ]; then
+
+#If we didn't configure a new RSA Key go ahead and bootstrap puppet and pull in the git repo
+if [ ! -f /root/.new_rsa ]
+then
+  sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp
   r10k deploy environment -pv
 fi

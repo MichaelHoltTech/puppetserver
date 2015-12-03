@@ -26,8 +26,14 @@ if [ "$ssh_rsa_key" ]; then
   sudo chmod 600 /root/.ssh/id_rsa
 fi
 if [ ! -f /root/.ssh/id_rsa ]; then
-ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
-touch /root/.new_rsa
+  ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
+  touch /root/.new_rsa
+fi
+if [ -f /root/.new_rsa ]; then
+  echo "Add the following PublicKey to allow the Puppetserver to pull your Core_Repo"
+  echo ""
+  cat /root/.ssh/id_rsa.pub
+  echo ""
 fi
 if [ ! -f /root/.new_rsa ]; then
   r10k deploy environment -pv

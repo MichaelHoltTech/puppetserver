@@ -6,6 +6,7 @@ docker run -d --name=puppet \
   --volumes-from data_puppet \
   -v /root/.ssh \
   -v /var/lib/puppet/ssl \
+  -v /home/rlcadmin/custom.yaml:/root/bootstrap/hiera/data/custom.yaml \
   -e PUPPETSERVER_JAVA_ARGS="-Xms384m -Xmx384m -XX:MaxPermSize=256m" \
   -p 8140:8140 \
   -h puppet.rlcit.org \
@@ -13,7 +14,9 @@ docker run -d --name=puppet \
   quay.io/michaelholttech/puppetserver:modular-config
 
 insert custom yaml:
-````-v /home/rlcadmin/custom.yaml:/root/bootstrap/hiera/data/custom.yaml \````
+````
+-v /home/rlcadmin/custom.yaml:/root/bootstrap/hiera/data/custom.yaml \
+````
 
 
 sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp

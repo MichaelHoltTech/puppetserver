@@ -4,6 +4,4 @@
 if [ ! -f /root/.new_rsa ]
 then
   exec /usr/bin/puppetserver foreground >> /var/log/syslog
-else
-  rm /root/.new_rsa
 fi

@@ -1,11 +1,18 @@
 #!/bin/bash
 
+if [ -f /root/.new_rsa ] && [ -f /root/.ssh/id_rsa ]
+then
+  rm /root/.new_rsa
+fi
+
 #Generate RSA Key if one does not exist already
 if [ ! -f /root/.ssh/id_rsa ]
 then
   ssh-keygen -t rsa -b 4096 -f '/root/.ssh/id_rsa' -N '' -C 'R10K Deployment Key'
   touch /root/.new_rsa
 fi
+
+
 
 
 #If we didn't configure a new RSA Key go ahead and bootstrap puppet and pull in the git repo

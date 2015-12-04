@@ -4,13 +4,13 @@ Package {
 
 class {'hiera':
   hierarchy => [
-    'clientcert/%{clientcert}',
-    'computer_role/%{computer_role}',
-    'puppet_role/%{puppet_role}',
-    'global',
+    'machine/%{clientcert}',
+    'role/%{computer_role}',
+    'common',
   ],
   datadir   => '/etc/puppet/environments/%{environment}/hiera',
 }
+
 class { 'r10k':
   sources           => {
     'puppet' => {
@@ -19,6 +19,7 @@ class { 'r10k':
       'prefix'  => false,
     },
   },
+  manage_modulepath => true
 }
 
 sshkey { 'github.com':

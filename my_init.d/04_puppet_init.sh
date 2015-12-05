@@ -1,6 +1,7 @@
 #!/bin/bash
 
-if [ -f /root/.new_rsa ] && [ -f /root/.ssh/id_rsa ]
+#Remove this file if it exists
+if [ -f /root/.new_rsa ]
 then
   rm /root/.new_rsa
 fi

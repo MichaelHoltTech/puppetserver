@@ -1,6 +1,22 @@
 [![](https://badge.imagelayers.io/michaelholttech/puppetserver:latest.svg)](https://imagelayers.io/?images=michaelholttech/puppetserver:latest 'Get your own badge on imagelayers.io')
-docker run -d --name=puppetserver \
--e PUPPETSERVER_JAVA_ARGS="-Xms384m -Xmx384m -XX:MaxPermSize=256m" \
--p 0.0.0.0:8140:8140 \
--h puppet.rlcit.org \
-michaelholttech/puppetserver
+
+docker run -d -v /root/.ssh -v /var/lib/puppet/ssl --name data_puppet busybox
+docker pull quay.io/michaelholttech/puppetserver:modular-config
+docker run -d --name=puppet \
+  --volumes-from data_puppet \
+  -v /root/.ssh \
+  -v /var/lib/puppet/ssl \
+  -v /home/rlcadmin/custom.yaml:/root/bootstrap/hiera/data/custom.yaml \
+  -e PUPPETSERVER_JAVA_ARGS="-Xms384m -Xmx384m -XX:MaxPermSize=256m" \
+  -p 8140:8140 \
+  -h puppet.rlcit.org \
+  --restart="always" \
+  quay.io/michaelholttech/puppetserver:modular-config
+
+insert custom yaml:
+````
+-v /home/rlcadmin/custom.yaml:/root/bootstrap/hiera/data/custom.yaml \
+````
+
+
+sudo puppet apply --hiera_config /root/bootstrap/hiera/hiera.yaml --modulepath=/root/bootstrap/modules /root/bootstrap/configure.pp
